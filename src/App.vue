@@ -1,32 +1,65 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
-</template>
+  <template>
+  <v-app id="inspire">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            Vuetify Todos
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            Best you ever seen
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+      <v-divider></v-divider>
 
-#nav {
-  padding: 30px;
+      <v-list
+        dense
+        nav
+      >
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          :to="item.to"
+          link
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <!--  -->
+      <router-view></router-view>
+    </v-main>
+  </v-app>
+</template> 
+
+<script>
+  export default {
+    data: () => ({
+      drawer: null,
+      items: [
+        { title: 'Dashboard', icon: 'mdi-view-dashboard', to: '/' },
+        { title: 'Todos', icon: 'mdi-format-list-checks', to: '/todo' },
+        { title: 'About', icon: 'mdi-help-box', to: '/about' },
+      ],
+    }),
   }
-}
-</style>
+</script>
